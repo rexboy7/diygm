@@ -6,19 +6,21 @@ export class ProductList extends Component {
   }
   render() {
     return (
-      <article>
+      <article className="row row-cols-1">
         {this.props.items.map((item) => (
-          <section key={item.id}>
-            <p>{item.author}</p>
-            <h3>{item.enTitle}</h3>
-            <h5>{item.enTitle}</h5>
-            <p>{item.tags.join(" / ")}</p>
+          <section key={item.id} className="col border-bottom p-4">
+            <div className="text-success">{item.author}</div>
+            <div className="display-3">{item.title}</div>
+            <h6 className="text-muted">{item.enTitle}</h6>
+            <p className="text-secondary">{item.tags.join(" / ")}</p>
             <p>{item.description}</p>
+            <div className="text-success fw-bold">
+              攤位號碼：<span>{item.place}</span>
+            </div>
+
             <p>
-              攤位號碼：
-              <span>{item.place}</span>
+              <a href={item.facebook}>Facebook</a>
             </p>
-            <a href={item.facebook}>Facebook</a>
           </section>
         ))}
       </article>
