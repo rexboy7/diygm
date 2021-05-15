@@ -17,12 +17,8 @@ function App() {
           <Route path="/activities">
             <Activities />
           </Route>
-          <Route path="/products/:page">
-            <ProductList />
-          </Route>
-          <Route path="/products">
-            <ProductList />
-          </Route>
+          <Route path="/products/:page" component={ProductList}/>
+          <Route path="/products" component={ProductList}/>
           <Route path="/interview">
             <Interview />
           </Route>
@@ -56,4 +52,7 @@ function Entry() {
   return <h2>Hahaha</h2>;
 }
 
+function ProductListWrapper(props) {
+  return <ProductList/>
+}
 export default App;
