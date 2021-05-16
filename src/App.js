@@ -4,6 +4,7 @@ import { Navbar } from "./Navbar";
 import { Home } from "./Home";
 import { ProductList } from "./ProductList";
 import { Activities } from "./Activities";
+import { Partners } from "./Partners";
 
 import React, { useCallback } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
@@ -17,8 +18,8 @@ function App() {
           <Route path="/activities">
             <Activities />
           </Route>
-          <Route path="/products/:page" component={ProductList}/>
-          <Route path="/products" component={ProductList}/>
+          <Route path="/products/:page" component={ProductList} />
+          <Route path="/products" component={ProductList} />
           <Route path="/interview">
             <Interview />
           </Route>
@@ -45,14 +46,11 @@ function App() {
 function Interview() {
   return <h2>Hahaha</h2>;
 }
-function Partners() {
-  return <h2>Hahaha</h2>;
-}
 function Entry() {
   return <h2>Hahaha</h2>;
 }
 
 function ProductListWrapper(props) {
-  return <ProductList/>
+  return <ProductList />;
 }
 export default App;
