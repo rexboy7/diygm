@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { itemData } from "./data/itemData";
+import { itemData } from "../data/itemData";
 import { Redirect } from "react-router-dom";
 const PER_PAGE = 5;
 
@@ -12,7 +12,6 @@ export function ProductList(props) {
 
   useEffect(() => {
     const listener = () => {
-      console.log(loadPage);
       if (
         !loadPage &&
         page < maxPage &&

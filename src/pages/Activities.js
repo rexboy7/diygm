@@ -1,5 +1,4 @@
-import { Component } from "react";
-import { activitiesData } from "./data/activitiesData.js";
+import { activitiesData } from "../data/activitiesData.js";
 
 export function Activities() {
   return (

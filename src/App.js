@@ -1,10 +1,10 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { Navbar } from "./Navbar";
-import { Home } from "./Home";
-import { ProductList } from "./ProductList";
-import { Activities } from "./Activities";
-import { Partners } from "./Partners";
+import { Home } from "./pages/Home";
+import { ProductList } from "./pages/ProductList";
+import { Activities } from "./pages/Activities";
+import { Partners } from "./pages/Partners";
 
 import React, { useCallback } from "react";
 import { BrowserRouter, Switch, Route, useParams } from "react-router-dom";

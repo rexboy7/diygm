@@ -1,4 +1,4 @@
-import { partnersData } from "./data/partnersData.js";
+import { partnersData } from "../data/partnersData.js";
 export function Partners() {
   return partnersData.map((group) => (
     <section className="row offset-lg-3 text-center " key={group.id}>

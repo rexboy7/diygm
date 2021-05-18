@@ -1,5 +1,4 @@
-import { Component } from "react";
-import mainArt from "./assets/mainart.jpg";
+import mainArt from "../assets/mainart.jpg";
 
 export function Home() {
   return (
