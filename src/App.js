@@ -7,9 +7,9 @@ import { Activities } from "./Activities";
 import { Partners } from "./Partners";
 
 import React, { useCallback } from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, useParams } from "react-router-dom";
 
-function App() {
+export function App() {
   return (
     <div className="container py-3">
       <BrowserRouter>
@@ -18,8 +18,8 @@ function App() {
           <Route path="/activities">
             <Activities />
           </Route>
-          <Route path="/products/:page" component={ProductList} />
-          <Route path="/products" component={ProductList} />
+          <Route path="/products/:page" component={ProductListWrapper} />
+          <Route path="/products" component={ProductListWrapper} />
           <Route path="/interview">
             <Interview />
           </Route>
@@ -51,6 +51,8 @@ function Entry() {
 }
 
 function ProductListWrapper(props) {
-  return <ProductList />;
+  const params = useParams();
+  const page = parseInt(params.page, 10) || 1;
+  return <ProductList page={page} />;
 }
 export default App;

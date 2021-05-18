@@ -1,60 +1,41 @@
-import { Component } from "react";
+import { useState, useEffect } from "react";
 import { itemData } from "./data/itemData";
 import { Redirect } from "react-router-dom";
-
 const PER_PAGE = 5;
-let myThis;
-export class ProductList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loadPage: false,
+
+export function ProductList(props) {
+  const [loadPage, setLoadPage] = useState(false);
+  const maxPage = Math.ceil(itemData.length / PER_PAGE);
+  const page = Math.min(props.page, maxPage);
+
+  const pagedItemData = itemData.slice(0, PER_PAGE * page);
+
+  useEffect(() => {
+    const listener = () => {
+      console.log(loadPage);
+      if (
+        !loadPage &&
+        page < maxPage &&
+        window.pageYOffset + window.innerHeight ===
+          document.documentElement.scrollHeight
+      ) {
+        setLoadPage(true);
+      }
     };
-    myThis = this;
-    //this.handleScroll = ;
-    this.handleScroll = this.handleScroll.bind(this);
-  }
-  get page() {
-    const hashPage = parseInt(this.props.match.params.page, 10) || 1;
-    return Math.min(hashPage, this.maxPage);
-  }
-  get maxPage() {
-    return Math.ceil(itemData.length / PER_PAGE);
-  }
-  get pagedItemData() {
-    const to = PER_PAGE * this.page;
-    return itemData.slice(0, to);
-  }
-  componentDidMount() {
-    document.addEventListener("scroll", this.handleScroll);
-  }
-  componentDidUpdate() {
-    if (this.state.loadPage) {
-      this.setState({ loadPage: false });
-    }
-  }
-  handleScroll(e) {
-    if (
-      !this.state.loading &&
-      this.page < this.maxPage &&
-      window.pageYOffset + window.innerHeight ===
-        document.documentElement.scrollHeight
-    ) {
-      this.setState({
-        loadPage: true,
-      });
-    }
-  }
-  render() {
-    return (
-      <article className="row row-cols-1">
-        <ProductListTable productList={this.pagedItemData} />
-        {this.state.loadPage ? (
-          <Redirect to={"/products/" + (this.page + 1)} />
-        ) : null}
-      </article>
-    );
-  }
+    document.addEventListener("scroll", listener);
+    return () => document.removeEventListener("scroll", listener);
+  });
+
+  useEffect(() => {
+    setLoadPage(false);
+  }, [loadPage]);
+
+  return (
+    <article className="row row-cols-1">
+      <ProductListTable productList={pagedItemData} />
+      {loadPage ? <Redirect to={"/products/" + (page + 1)} /> : null}
+    </article>
+  );
 }
 
 function ProductListTable(props) {
