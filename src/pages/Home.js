@@ -30,7 +30,7 @@ export function Home() {
           <br />
         </p>
       </div>
-      <div class="row justify-content-center">
+      <div className="row justify-content-center">
         <div className="col-2">圖片</div>
         <div className="col-6">
           <h3>活動中有什麼？</h3>

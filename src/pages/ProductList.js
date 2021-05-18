@@ -1,16 +1,19 @@
 import { useState, useEffect } from "react";
-import { itemData } from "../data/itemData";
 import { Redirect } from "react-router-dom";
+import { useFetchURL } from "../utils";
+import { API_DOMAIN } from "../env";
+
 const PER_PAGE = 5;
+const ENDPOINT = `${API_DOMAIN}/items`;
 
 export function ProductList(props) {
   const [loadPage, setLoadPage] = useState(false);
+  const itemData = useFetchURL(ENDPOINT)?.data || [];
   const maxPage = Math.ceil(itemData.length / PER_PAGE);
   const page = Math.min(props.page, maxPage);
-
   const pagedItemData = itemData.slice(0, PER_PAGE * page);
 
-  useEffect(() => {
+  useEffect(function addScrollListener() {
     const listener = () => {
       if (
         !loadPage &&
@@ -25,9 +28,12 @@ export function ProductList(props) {
     return () => document.removeEventListener("scroll", listener);
   });
 
-  useEffect(() => {
-    setLoadPage(false);
-  }, [loadPage]);
+  useEffect(
+    function resetPageLoading() {
+      setLoadPage(false);
+    },
+    [loadPage]
+  );
 
   return (
     <article className="row row-cols-1">

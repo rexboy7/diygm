@@ -1,5 +1,11 @@
-import { partnersData } from "../data/partnersData.js";
+import { useFetchURL } from "../utils";
+import { API_DOMAIN } from "../env";
+
+const ENDPOINT = `${API_DOMAIN}/partners`;
+
 export function Partners() {
+  const partnersData = useFetchURL(ENDPOINT)?.data || [];
+
   return partnersData.map((group) => (
     <section className="row offset-lg-3 text-center " key={group.id}>
       <GroupTitle title={group.name} />

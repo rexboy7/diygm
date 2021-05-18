@@ -1,6 +1,12 @@
-import { activitiesData } from "../data/activitiesData.js";
+import { useFetchURL } from "../utils";
+import { API_DOMAIN } from "../env";
+import { useState, useEffect } from "react";
+
+const ENDPOINT = `${API_DOMAIN}/activities`;
 
 export function Activities() {
+  const activitiesData = useFetchURL(ENDPOINT)?.data || [];
+
   return (
     <article className="container-xl">
       <h1 className="col-12 display-1 text-center my-5">現場交流活動</h1>
