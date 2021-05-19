@@ -1,4 +1,3 @@
-import { Component } from "react";
 import { NavLink } from "react-router-dom";
 
 export function Navbar() {
@@ -47,6 +46,11 @@ export function Navbar() {
         <li className="nav-item">
           <NavLink to="/entry" className="nav-link" activeClassName="active">
             來去報名
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink to="/admin" className="nav-link" activeClassName="active">
+            管理員介面
           </NavLink>
         </li>
       </ul>

@@ -5,6 +5,7 @@ import { Home } from "./pages/Home";
 import { ProductList } from "./pages/ProductList";
 import { Activities } from "./pages/Activities";
 import { Partners } from "./pages/Partners";
+import { AdminRoute } from "./admin/AdminRoute";
 
 import React, { useCallback } from "react";
 import { BrowserRouter, Switch, Route, useParams } from "react-router-dom";
@@ -15,6 +16,7 @@ export function App() {
       <BrowserRouter>
         <Navbar />
         <Switch>
+          <Route path="/admin" component={AdminRoute} />
           <Route path="/activities">
             <Activities />
           </Route>
@@ -55,4 +57,5 @@ function ProductListWrapper(props) {
   const page = parseInt(params.page, 10) || 1;
   return <ProductList page={page} />;
 }
+
 export default App;

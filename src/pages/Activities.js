@@ -1,6 +1,5 @@
 import { useFetchURL } from "../utils";
 import { API_DOMAIN } from "../env";
-import { useState, useEffect } from "react";
 
 const ENDPOINT = `${API_DOMAIN}/activities`;
 
