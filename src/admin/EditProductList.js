@@ -2,6 +2,7 @@ import { useFetchURL } from "../utils";
 import { useRouteMatch } from "react-router-dom";
 import { API_DOMAIN } from "../env";
 import { Link } from "react-router-dom";
+import { FormEditProduct } from "./component/FormEditProduct";
 
 const PER_PAGE = 5;
 const ENDPOINT = `${API_DOMAIN}/items`;
@@ -21,63 +22,11 @@ export function EditProductList(props) {
       <Pager page={page} maxPage={maxPage} baseUrl={`${match.path}`} />
       <section>
         {pagedItemData.map((item) => (
-          <EditProduct product={item} key={item.id} />
+          <FormEditProduct product={item} key={item.id} />
         ))}
       </section>
       <Pager page={page} maxPage={maxPage} baseUrl={`${match.path}`} />
     </article>
-  );
-}
-
-function EditProduct(props) {
-  const { id, author, title, enTitle, tags, description, place, facebook } =
-    props.product;
-  console.log(id);
-  return (
-    <section className="my-4">
-      <div className="row">
-        <div className="col-2 text-end">ID:</div>
-        <div className="col-2">{id}</div>
-      </div>
-
-      <div className="row">
-        <span className="col-2 text-end">作者</span>
-        <input className="col col-md-4" type="text" value={author} />
-      </div>
-      <div className="row">
-        <span className="col-2 text-end">標題</span>
-        <input className="col col-md-4" type="text" value={title} />
-      </div>
-      <div className="row">
-        <span className="col-2 text-end">英文標題</span>
-        <input className="col col-md-4" type="text" value={enTitle} />
-      </div>
-      <div className="row">
-        <span className="col-2 text-end">標籤</span>
-        <input className="col col-md-4" type="text" value={tags?.join(",")} />
-      </div>
-      <div className="row">
-        <span className="col-2 text-end">描述</span>
-        <br />
-        <textarea
-          className="col col-md-4"
-          rows="10"
-          cols="40"
-          value={description}
-        />
-      </div>
-      <div className="row">
-        <span className="col-2 text-end">攤位號碼</span>
-        <input className="col col-md-4" type="textarea" value={place} />
-      </div>
-      <div className="row">
-        <span className="col-2 text-end">臉書連結</span>
-        <input className="col col-md-4" type="textarea" value={facebook} />
-      </div>
-      <div className="row">
-        <button className="col col-md-4 offset-2">送出修改</button>
-      </div>
-    </section>
   );
 }
 
