@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
-import { useFetchURL } from "../utils";
+import { useFetchFunction } from "../utils";
 import { API_DOMAIN } from "../env";
+import { fetchItemList } from "../fetcher";
 
 const PER_PAGE = 5;
 const ENDPOINT = `${API_DOMAIN}/items`;
 
 export function ProductList(props) {
   const [loadPage, setLoadPage] = useState(false);
-  const itemData = useFetchURL(ENDPOINT)?.data || [];
+  const itemData = useFetchFunction(fetchItemList) || [];
   const maxPage = Math.ceil(itemData.length / PER_PAGE);
   const page = Math.min(props.page, maxPage);
   const pagedItemData = itemData.slice(0, PER_PAGE * page);

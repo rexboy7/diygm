@@ -1,14 +1,15 @@
-import { useFetchURL } from "../utils";
+import { useFetchFunction } from "../utils";
 import { useRouteMatch } from "react-router-dom";
 import { API_DOMAIN } from "../env";
 import { Link } from "react-router-dom";
 import { FormEditProduct } from "./component/FormEditProduct";
+import { fetchItemList } from "../fetcher";
 
 const PER_PAGE = 5;
 const ENDPOINT = `${API_DOMAIN}/items`;
 
 export function EditProductList(props) {
-  const itemData = useFetchURL(ENDPOINT)?.data || [];
+  const itemData = useFetchFunction(fetchItemList) || [];
   const maxPage = Math.ceil(itemData.length / PER_PAGE);
   const page = Math.min(props.page, maxPage);
   const itemFrom = PER_PAGE * (page - 1);

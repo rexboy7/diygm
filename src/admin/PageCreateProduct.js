@@ -16,11 +16,8 @@ const productTemplate = {
 
 let id = 1;
 
-function getNewProduct(id) {
-  return {
-    ...productTemplate,
-    id: `new-${id++}`,
-  };
+function getNewId(id) {
+  return `new-${id++}`;
 }
 
 function useNextId() {
@@ -31,28 +28,26 @@ function useNextId() {
   };
 }
 
-const initNewProduct = getNewProduct(0);
-
 export function PageCreateProduct() {
-  const [newProducts, setNewProducts] = useState([initNewProduct]);
   const getNextId = useNextId();
+  const [newProductIds, setNewProductIds] = useState([getNewId(0)]);
 
   function appendProduct() {
-    setNewProducts([...newProducts, getNewProduct(getNextId())]);
+    setNewProductIds([...newProductIds, getNewId(getNextId())]);
   }
 
   return (
     <article>
-      {newProducts.map((product) => (
-        <FormEditProduct key={product.id} product={product} />
+      {newProductIds.map((id, idx) => (
+        <FormEditProduct key={id} product={productTemplate} />
       ))}
       <section className="my-4 row">
         <button
           className="offset-2 col col-md-6"
           onClick={appendProduct}
-          disabled={newProducts.length >= MAX_CREATE}
+          disabled={newProductIds.length >= MAX_CREATE}
         >
-          Add new item
+          增加新項目
         </button>
       </section>
     </article>

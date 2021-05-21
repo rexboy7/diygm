@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { addItem, updateItem, deleteItem } from "../../fetcher";
 
 export function FormEditProduct(props) {
   const [product, setProduct] = useState(props.product);
@@ -13,9 +14,24 @@ export function FormEditProduct(props) {
       [name]: newValue,
     });
   }
+
   const { id, author, title, enTitle, tags, description, place, facebook } =
     product;
 
+  async function handleSubmit() {
+    const result = id ? await updateItem(product) : await addItem(product);
+    product.id = result.id;
+    setProduct({ ...product });
+  }
+
+  async function handleDelete() {
+    await deleteItem(product.id);
+    setProduct({ deleted: true });
+  }
+
+  if (product.deleted) {
+    return <section className="my-4">Successfully deleted.</section>;
+  }
   return (
     <section className="my-4">
       <div className="row">
@@ -96,8 +112,12 @@ export function FormEditProduct(props) {
         />
       </div>
       <div className="row">
-        <button className="col col-md-4 offset-2">送出修改</button>
-        <button className="col col-md-1">刪除</button>
+        <button className="col col-md-4 offset-2" onClick={handleSubmit}>
+          送出
+        </button>
+        <button className="col col-md-1" onClick={handleDelete}>
+          刪除
+        </button>
         <button className="col col-md-1">插入</button>
       </div>
     </section>
