@@ -16,6 +16,7 @@ export function Activities() {
             <h4 className="m-3">{activity.title}</h4>
             <p className="text-success">{activity.groupName}</p>
             <p className="text-secondary keep-wrap">{activity.description}</p>
+            <h6>{activity.time}</h6>
           </div>
         ))}
       </div>
