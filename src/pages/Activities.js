@@ -1,10 +1,10 @@
-import { useFetchURL } from "../utils";
-import { API_DOMAIN } from "../env";
+import { useFetchFunction } from "../utils";
+import { fetchList } from "../fetcher";
 
-const ENDPOINT = `${API_DOMAIN}/activities`;
-
+const DB_ACTIVITY = "activities";
+const fetchActivityList = () => fetchList(DB_ACTIVITY);
 export function Activities() {
-  const activitiesData = useFetchURL(ENDPOINT)?.data || [];
+  const activitiesData = useFetchFunction(fetchActivityList) || [];
 
   return (
     <article className="container-xl">

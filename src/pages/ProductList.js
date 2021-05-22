@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { useFetchFunction } from "../utils";
 import { API_DOMAIN } from "../env";
-import { fetchItemList } from "../fetcher";
+import { fetchList } from "../fetcher";
 
 const PER_PAGE = 5;
 const ENDPOINT = `${API_DOMAIN}/items`;
+
+const fetchItemList = () => fetchList("items");
 
 export function ProductList(props) {
   const [loadPage, setLoadPage] = useState(false);

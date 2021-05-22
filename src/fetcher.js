@@ -12,8 +12,8 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 
-export async function fetchItemList() {
-  const iterator = await db.collection("items").get();
+export async function fetchList(collectionName) {
+  const iterator = await db.collection(collectionName).get();
   const itemList = [];
 
   iterator.forEach((doc) => {
@@ -22,17 +22,17 @@ export async function fetchItemList() {
   return itemList;
 }
 
-export async function addItem(data) {
-  const result = await db.collection("items").add(data);
+export async function addDoc(collectionName, data) {
+  const result = await db.collection(collectionName).add(data);
   return result;
 }
 
-export async function updateItem(data) {
-  const ref = await db.collection("items").doc(data.id);
+export async function updateDoc(collectionName, data) {
+  const ref = await db.collection(collectionName).doc(data.id);
   await ref.set(data);
   return ref;
 }
 
-export async function deleteItem(id) {
-  return await db.collection("items").doc(id).delete();
+export async function deleteDoc(collectionName, id) {
+  return await db.collection(collectionName).doc(id).delete();
 }

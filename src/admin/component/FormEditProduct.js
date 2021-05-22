@@ -1,6 +1,9 @@
 import { useState } from "react";
-import { addItem, updateItem, deleteItem } from "../../fetcher";
+import { addDoc, updateDoc, deleteDoc } from "../../fetcher";
+import { FormText } from "./FormText";
+import { FormTextarea } from "./FormTextarea";
 
+const DB_ITEM = "items";
 export function FormEditProduct(props) {
   const [product, setProduct] = useState(props.product);
 
@@ -19,13 +22,15 @@ export function FormEditProduct(props) {
     product;
 
   async function handleSubmit() {
-    const result = id ? await updateItem(product) : await addItem(product);
+    const result = id
+      ? await updateDoc(DB_ITEM, product)
+      : await addDoc(DB_ITEM, product);
     product.id = result.id;
     setProduct({ ...product });
   }
 
   async function handleDelete() {
-    await deleteItem(product.id);
+    await deleteDoc(DB_ITEM, product.id);
     setProduct({ deleted: true });
   }
 
@@ -39,86 +44,55 @@ export function FormEditProduct(props) {
         <div className="col-2">{id}</div>
       </div>
 
-      <div className="row">
-        <span className="col-2 text-end">作者</span>
-        <input
-          className="col col-md-6"
-          type="text"
-          value={author}
-          name="author"
-          onChange={handleChange}
-        />
-      </div>
-      <div className="row">
-        <span className="col-2 text-end">標題</span>
-        <input
-          className="col col-md-6"
-          type="text"
-          value={title}
-          name="title"
-          onChange={handleChange}
-        />
-      </div>
-      <div className="row">
-        <span className="col-2 text-end">英文標題</span>
-        <input
-          className="col col-md-6"
-          type="text"
-          value={enTitle}
-          name="enTitle"
-          onChange={handleChange}
-        />
-      </div>
-      <div className="row">
-        <span className="col-2 text-end">標籤</span>
-        <input
-          className="col col-md-6"
-          type="text"
-          value={tags?.join(",")}
-          name="tags"
-          onChange={handleChange}
-        />
-      </div>
-      <div className="row">
-        <span className="col-2 text-end">描述</span>
-        <br />
-        <textarea
-          className="col col-md-6"
-          rows="10"
-          cols="40"
-          value={description}
-          name="description"
-          onChange={handleChange}
-        />
-      </div>
-      <div className="row">
-        <span className="col-2 text-end">攤位號碼</span>
-        <input
-          className="col col-md-6"
-          type="textarea"
-          value={place}
-          name="place"
-          onChange={handleChange}
-        />
-      </div>
-      <div className="row">
-        <span className="col-2 text-end">臉書連結</span>
-        <input
-          className="col col-md-6"
-          type="textarea"
-          value={facebook}
-          name="facebook"
-          onChange={handleChange}
-        />
-      </div>
+      <FormText
+        onChange={handleChange}
+        value={author}
+        name="author"
+        title="作者"
+      />
+      <FormText
+        onChange={handleChange}
+        value={title}
+        name="title"
+        title="標題"
+      />
+      <FormText
+        onChange={handleChange}
+        value={enTitle}
+        name="enTitle"
+        title="英文標題"
+      />
+      <FormText
+        onChange={handleChange}
+        value={tags?.join(",")}
+        name="tags"
+        title="英文標籤"
+      />
+      <FormTextarea
+        onChange={handleChange}
+        value={description}
+        name="description"
+        title="描述"
+      />
+      <FormText
+        onChange={handleChange}
+        value={place}
+        name="place"
+        title="英文標籤"
+      />
+      <FormText
+        onChange={handleChange}
+        value={facebook}
+        name="facebook"
+        title="臉書連結"
+      />
       <div className="row">
         <button className="col col-md-4 offset-2" onClick={handleSubmit}>
           送出
         </button>
-        <button className="col col-md-1" onClick={handleDelete}>
+        <button className="col col-md-2" onClick={handleDelete}>
           刪除
         </button>
-        <button className="col col-md-1">插入</button>
       </div>
     </section>
   );

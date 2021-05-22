@@ -1,20 +1,15 @@
-import { FormEditProduct } from "./component/FormEditProduct";
+import { FormEditActivity } from "./component/FormEditActivity";
 import { useState } from "react";
 
 const MAX_CREATE = 10;
 
-const productTemplate = {
+const itemTemplate = {
   id: "",
-  author: "",
   title: "",
-  enTitle: "",
-  tags: [],
+  groupName: "",
   description: "",
-  place: "",
-  facebook: "",
+  time: "",
 };
-
-let id = 1;
 
 function getNewId(id) {
   return `new-${id++}`;
@@ -28,24 +23,24 @@ function useNextId() {
   };
 }
 
-export function PageCreateProduct() {
+export function PageCreateActivity() {
   const getNextId = useNextId();
-  const [newProductIds, setNewProductIds] = useState([getNewId(0)]);
+  const [newItemIds, setNewItemIds] = useState([getNewId(0)]);
 
-  function appendProduct() {
-    setNewProductIds([...newProductIds, getNewId(getNextId())]);
+  function appendItem() {
+    setNewItemIds([...newItemIds, getNewId(getNextId())]);
   }
 
   return (
     <article>
-      {newProductIds.map((id) => (
-        <FormEditProduct key={id} product={productTemplate} />
+      {newItemIds.map((id) => (
+        <FormEditActivity key={id} item={itemTemplate} />
       ))}
       <section className="my-4 row">
         <button
           className="offset-2 col col-md-6"
-          onClick={appendProduct}
-          disabled={newProductIds.length >= MAX_CREATE}
+          onClick={appendItem}
+          disabled={newItemIds.length >= MAX_CREATE}
         >
           增加新項目
         </button>
